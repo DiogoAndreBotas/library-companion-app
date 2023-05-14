@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:library_companion/book_item.dart';
+import 'package:library_companion/book_widget.dart';
 
 void main() {
   runApp(const MyApp());
@@ -26,24 +28,26 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final itemNum = 10;
+    final List<BookItem> books = List.generate(
+        itemNum,
+        (index) => BookItem(
+            "Poirot's Early Cases",
+            "Agatha Christie",
+            "https://upload.wikimedia.org/wikipedia/en/5/50/Poirot%27s_Early_Cases_First_Edition_Cover_1974.jpg"
+        )
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const <Widget>[
-            HomeButton(text: 'Book List', verticalPadding: 10, horizontalPadding: 65),
-            SizedBox(height: 50),
-            HomeButton(text: 'Add a Book', verticalPadding: 10, horizontalPadding: 52),
-            SizedBox(height: 50),
-            HomeButton(text: 'I Feel Lucky', verticalPadding: 10, horizontalPadding: 50),
-            SizedBox(height: 50),
-            HomeButton(text: 'Suggest a Book', verticalPadding: 10, horizontalPadding: 27),
-          ],
-        ),
-      ),
+      body: ListView.builder(
+        itemCount: itemNum,
+        itemBuilder: (context, index) {
+          return BookWidget(bookItem: books[index]);
+        },
+      )
     );
   }
 }
