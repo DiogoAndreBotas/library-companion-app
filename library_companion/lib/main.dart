@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:library_companion/book_item.dart';
+import 'package:library_companion/book.dart';
+import 'package:library_companion/book_list_widget.dart';
 import 'package:library_companion/book_widget.dart';
 
 void main() {
@@ -28,56 +29,24 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final itemNum = 10;
-    final List<BookItem> books = List.generate(
+    const itemNum = 10;
+    final List<Book> books = List.generate(
         itemNum,
-        (index) => BookItem(
+        (index) => Book(
             "Poirot's Early Cases",
             "Agatha Christie",
             "https://upload.wikimedia.org/wikipedia/en/5/50/Poirot%27s_Early_Cases_First_Edition_Cover_1974.jpg"
         )
     );
+    final List<BookWidget> bookWidgets = books
+        .map((bookItem) => BookWidget(book: bookItem))
+        .toList();
 
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
       ),
-      body: ListView.builder(
-        itemCount: itemNum,
-        itemBuilder: (context, index) {
-          return BookWidget(bookItem: books[index]);
-        },
-      )
-    );
-  }
-}
-
-class HomeButton extends StatelessWidget {
-  const HomeButton({
-    super.key,
-    required this.text,
-    required this.verticalPadding,
-    required this.horizontalPadding
-  });
-
-  final String text;
-  final double verticalPadding;
-  final double horizontalPadding;
-
-  @override
-  Widget build(BuildContext context) {
-    return OutlinedButton(
-      style: TextButton.styleFrom(
-        textStyle: const TextStyle(fontSize: 25),
-        side: const BorderSide(width: 2, color: Colors.brown),
-        padding: EdgeInsets.symmetric(
-          vertical: verticalPadding,
-          horizontal: horizontalPadding
-        ),
-        foregroundColor: Colors.black
-      ),
-      onPressed: () {},
-      child: Text(text),
+      body: BookListWidget(bookWidgets: bookWidgets),
     );
   }
 }

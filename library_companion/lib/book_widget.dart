@@ -1,36 +1,61 @@
-import 'package:flutter/cupertino.dart';
-import 'package:library_companion/book_item.dart';
+import 'package:flutter/material.dart';
+import 'package:library_companion/book.dart';
 
 class BookWidget extends StatelessWidget {
-  const BookWidget({
-    super.key,
-    required this.bookItem
-  });
+  final Book book;
 
-  final BookItem bookItem;
+  const BookWidget({super.key, required this.book});
 
   @override
   Widget build(BuildContext context) {
-    return Row (
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
-          height: 250,
-          child: Image.network(bookItem.imageUrl),
-        ),
         Column(
+            children: [
+              SizedBox(
+                height: 175,
+                child: Image.network(book.imageUrl),
+              )
+            ]
+        ),
+        const SizedBox(width: 20),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Title: ${bookItem.name}"),
+            const SizedBox(height: 10),
+            Text(
+              book.name,
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold
               ),
             ),
-            SizedBox(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text("Author: ${bookItem.author}")
+            const SizedBox(height: 5),
+            Text(
+              "by ${book.author}",
+              style: const TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.normal
               ),
             ),
+            const SizedBox(height: 30),
+            Align(
+              alignment: Alignment.bottomLeft,
+              child:
+                Container(
+                  color: Colors.green,
+                  padding: const EdgeInsets.all(5),
+                  child: const Text(
+                    'Status: Read',
+                    style: TextStyle(
+                      color: Colors.white, // Set text color
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+            )
           ],
         )
       ],

@@ -1,7 +1,7 @@
-class BookItem {
+class Book {
   final String name;
   final String author;
   final String imageUrl;
 
-  BookItem(this.name, this.author, this.imageUrl);
+  Book(this.name, this.author, this.imageUrl);
 }
