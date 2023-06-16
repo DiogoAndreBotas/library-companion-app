@@ -3,5 +3,17 @@ class Book {
   final String author;
   final String imageUrl;
 
-  Book(this.name, this.author, this.imageUrl);
+  const Book({
+    required this.name,
+    required this.author,
+    required this.imageUrl
+  });
+
+  factory Book.fromJson(Map<String, dynamic> json) {
+    return Book(
+        name: json['name'],
+        author: json['author'],
+        imageUrl: json['imageUrl']
+    );
+  }
 }
