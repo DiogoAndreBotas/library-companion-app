@@ -25,7 +25,7 @@ class BookWidget extends StatelessWidget {
           children: [
             const SizedBox(height: 10),
             Text(
-              book.name,
+              book.title,
               style: const TextStyle(
                   fontSize: 18,
                   fontWeight: FontWeight.bold
