@@ -20,43 +20,30 @@ class BookWidget extends StatelessWidget {
             ]
         ),
         const SizedBox(width: 20),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const SizedBox(height: 10),
-            Text(
-              book.title,
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold
-              ),
-            ),
-            const SizedBox(height: 5),
-            Text(
-              "by ${book.author}",
-              style: const TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.normal
-              ),
-            ),
-            const SizedBox(height: 30),
-            Align(
-              alignment: Alignment.bottomLeft,
-              child:
-                Container(
-                  color: Colors.green,
-                  padding: const EdgeInsets.all(5),
-                  child: const Text(
-                    'Status: Read',
-                    style: TextStyle(
-                      color: Colors.white, // Set text color
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const SizedBox(height: 10),
+              Text(
+                book.title,
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold
                 ),
-            )
-          ],
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "by ${book.author}",
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                    fontSize: 14,
+                    fontWeight: FontWeight.normal
+                ),
+              ),
+            ],
+          ),
         )
       ],
     );
