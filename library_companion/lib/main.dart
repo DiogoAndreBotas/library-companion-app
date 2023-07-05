@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:library_companion/add_book_button.dart';
 import 'package:library_companion/book_list_widget.dart';
 
 void main() {
@@ -30,6 +31,9 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
+        actions: const [
+          AddBookButton()
+        ],
       ),
       body: const BookListWidget(),
     );

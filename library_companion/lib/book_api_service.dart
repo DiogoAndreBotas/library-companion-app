@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:library_companion/book.dart';
 
-class BookService {
+class BookApiService {
   static const apiUrl = 'http://192.168.1.96:8080';
   static const getBooksUrl = '$apiUrl/api/books';
 
@@ -15,4 +15,15 @@ class BookService {
       throw Exception('Failed to load books');
     }
   }
+
+  static void addBookWithIsbn(String isbn) async {
+    await http.post(
+        Uri.parse(getBooksUrl),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+        },
+        body: jsonEncode({'isbn': isbn})
+    );
+  }
+
 }
