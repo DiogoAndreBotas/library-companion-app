@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:library_companion/book_service.dart';
+import 'package:library_companion/book_api_service.dart';
 import 'book.dart';
 import 'book_widget.dart';
 
@@ -16,7 +16,7 @@ class _BookListWidgetState extends State<BookListWidget> {
   @override
   void initState() {
     super.initState();
-    futureBooks = BookService.getBooks();
+    futureBooks = BookApiService.getBooks();
   }
 
   @override
@@ -34,18 +34,27 @@ class _BookListWidgetState extends State<BookListWidget> {
     );
   }
 
+  Future refreshBooks() async {
+    setState(() {
+      futureBooks = BookApiService.getBooks();
+    });
+  }
+
   Widget _buildBookList(List<Book> books) {
     var bookWidgets = books.map((book) => BookWidget(book: book)).toList();
 
-    return ListView.separated(
-      separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 2.5),
-      itemCount: bookWidgets.length,
-      itemBuilder: (BuildContext context, int index) {
-        return Padding(
-          padding: EdgeInsets.only(top: index == 0 ? 0 : 5, bottom: index == bookWidgets.length - 1 ? 0.0 : 8.0),
-          child: bookWidgets[index],
-        );
-      },
+    return RefreshIndicator(
+        onRefresh: refreshBooks,
+        child: ListView.separated(
+          separatorBuilder: (BuildContext context, int index) => const SizedBox(height: 2.5),
+          itemCount: bookWidgets.length,
+          itemBuilder: (BuildContext context, int index) {
+            return Padding(
+              padding: EdgeInsets.only(top: index == 0 ? 0 : 5, bottom: index == bookWidgets.length - 1 ? 0.0 : 8.0),
+              child: bookWidgets[index],
+            );
+          },
+        )
     );
   }
 }
