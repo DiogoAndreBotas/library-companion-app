@@ -16,8 +16,8 @@ class BookApiService {
     }
   }
 
-  static void addBookWithIsbn(String isbn) async {
-    await http.post(
+  static Future<http.Response> addBookWithIsbn(String isbn) {
+    return http.post(
         Uri.parse(getBooksUrl),
         headers: <String, String>{
           'Content-Type': 'application/json',

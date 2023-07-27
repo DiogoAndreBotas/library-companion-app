@@ -1,10 +1,13 @@
+import 'package:event/event.dart';
 import 'package:flutter/material.dart';
 import 'package:library_companion/book_api_service.dart';
 import 'book.dart';
 import 'book_widget.dart';
 
 class BookListWidget extends StatefulWidget {
-  const BookListWidget({super.key});
+  const BookListWidget({super.key, required this.event});
+
+  final Event event;
 
   @override
   State<StatefulWidget> createState() => _BookListWidgetState();
@@ -17,6 +20,7 @@ class _BookListWidgetState extends State<BookListWidget> {
   void initState() {
     super.initState();
     futureBooks = BookApiService.getBooks();
+    widget.event.subscribe((_) => refreshBooks());
   }
 
   @override

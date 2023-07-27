@@ -1,3 +1,4 @@
+import 'package:event/event.dart';
 import 'package:flutter/material.dart';
 import 'package:library_companion/add_book_button.dart';
 import 'package:library_companion/book_list_widget.dart';
@@ -28,14 +29,16 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Event refreshBookListEvent = Event();
+
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
-        actions: const [
-          AddBookButton()
+        actions: [
+          AddBookButton(event: refreshBookListEvent)
         ],
       ),
-      body: const BookListWidget(),
+      body: BookListWidget(event: refreshBookListEvent),
     );
   }
 }
