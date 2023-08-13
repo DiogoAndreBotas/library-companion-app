@@ -35,7 +35,7 @@ class BookWidget extends StatelessWidget {
               ),
               const SizedBox(height: 5),
               Text(
-                "by ${book.author}",
+                "by ${book.authors}",
                 overflow: TextOverflow.clip,
                 style: const TextStyle(
                     fontSize: 14,
