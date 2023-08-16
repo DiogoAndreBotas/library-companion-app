@@ -1,6 +1,8 @@
 import 'package:event/event.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart';
 import 'package:library_companion/book_api_service.dart';
+import 'add_book_button.dart';
 import 'book.dart';
 import 'book_widget.dart';
 
@@ -20,7 +22,10 @@ class _BookListWidgetState extends State<BookListWidget> {
   void initState() {
     super.initState();
     futureBooks = BookApiService.getBooks();
-    widget.event.subscribe((_) => refreshBooks());
+    widget.event.subscribe((responseArg) {
+      Response response = (responseArg as ResponseArg).getResponse();
+      refreshAddedBook(response);
+    });
   }
 
   @override
@@ -42,6 +47,17 @@ class _BookListWidgetState extends State<BookListWidget> {
     setState(() {
       futureBooks = BookApiService.getBooks();
     });
+  }
+
+  Future refreshAddedBook(Response response) async {
+    if (response.statusCode == 422) {
+      ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('Failed to add book'))
+      );
+    }
+    else {
+      refreshBooks();
+    }
   }
 
   Widget _buildBookList(List<Book> books) {
