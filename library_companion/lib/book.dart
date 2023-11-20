@@ -3,6 +3,7 @@ class Book {
   final String authors;
   final int pages;
   final String isbn;
+  final String publishDate;
   final String imageUrl;
 
   const Book({
@@ -10,6 +11,7 @@ class Book {
     required this.authors,
     required this.pages,
     required this.isbn,
+    required this.publishDate,
     required this.imageUrl
   });
 
@@ -19,7 +21,8 @@ class Book {
         authors: json['authors'].join(', '),
         pages: json['pages'],
         isbn: json['isbn'],
-        imageUrl: 'http://192.168.1.96:8080/api/covers/${json['isbn']}'
+        publishDate: json['publishDate'],
+        imageUrl: json['imageUrl']
     );
   }
 }

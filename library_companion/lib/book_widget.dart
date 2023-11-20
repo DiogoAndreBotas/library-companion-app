@@ -11,15 +11,14 @@ class BookWidget extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
-            children: [
-              SizedBox(
-                height: 175,
-                child: Image.network(book.imageUrl),
-              )
-            ]
-        ),
-        const SizedBox(width: 20),
+        Column(children: [
+          SizedBox(
+            height: 169,
+            width: 110,
+            child: Image.network(book.imageUrl),
+          )
+        ]),
+        const SizedBox(width: 10),
         Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,19 +27,29 @@ class BookWidget extends StatelessWidget {
               Text(
                 book.title,
                 overflow: TextOverflow.clip,
-                style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold
-                ),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 5),
               Text(
                 "by ${book.authors}",
                 overflow: TextOverflow.clip,
                 style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.normal
-                ),
+                    fontSize: 14, fontWeight: FontWeight.normal),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Pages: ${book.pages}",
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.normal),
+              ),
+              const SizedBox(height: 5),
+              Text(
+                "Publish date: ${book.publishDate}",
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                    fontSize: 14, fontWeight: FontWeight.normal),
               ),
             ],
           ),
