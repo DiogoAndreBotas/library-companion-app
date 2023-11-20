@@ -17,6 +17,10 @@ class AddBookButton extends StatelessWidget {
               "#ff6666", "Cancel", true, ScanMode.BARCODE
           );
 
+          if (isbn == "-1") {
+            return;
+          }
+
           BookApiService
               .addBookWithIsbn(isbn)
               .then((response) => event.broadcast(ResponseArg(response)));
