@@ -1,13 +1,17 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:library_companion/book.dart';
+import 'dart:io' show Platform;
+
+import 'package:library_companion/platform_not_supported_exception.dart';
 
 class BookApiService {
-  static const apiUrl = 'http://192.168.1.96:8080';
-  static const getBooksUrl = '$apiUrl/api/books';
+  static const host = '192.168.1.96';
+  static const apiUrl = 'http://$host:8080';
+  static final booksUrl = '$apiUrl/api/users/${_getUserId()}/books';
 
   static Future<List<Book>> getBooks() async {
-    final response = await http.get(Uri.parse(getBooksUrl));
+    final response = await http.get(Uri.parse(booksUrl));
 
     if (response.statusCode == 200) {
       return jsonDecode(response.body).map((book) => Book.fromJson(book)).toList().cast<Book>();
@@ -16,9 +20,9 @@ class BookApiService {
     }
   }
 
-  static Future<http.Response> addBookWithIsbn(String isbn) {
+  static Future<http.Response> addBook(String isbn) {
     return http.post(
-        Uri.parse(getBooksUrl),
+        Uri.parse(booksUrl),
         headers: <String, String>{
           'Content-Type': 'application/json',
         },
@@ -26,4 +30,16 @@ class BookApiService {
     );
   }
 
+  // TODO cache this value on startup
+  static String _getUserId() {
+    if (Platform.isIOS) {
+      return '2';
+    }
+    else if (Platform.isAndroid) {
+      return '1';
+    }
+    else {
+      throw PlatformNotSupportedException('Platform ${Platform.operatingSystem} is not supported');
+    }
+  }
 }

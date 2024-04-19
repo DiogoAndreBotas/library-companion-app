@@ -21,7 +21,7 @@ class AddBookButton extends StatelessWidget {
           }
 
           BookApiService
-              .addBookWithIsbn(isbn)
+              .addBook(isbn)
               .then((response) => event.broadcast());
         },
         icon: const Icon(Icons.add)

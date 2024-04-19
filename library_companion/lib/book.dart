@@ -18,7 +18,7 @@ class Book {
   factory Book.fromJson(Map<String, dynamic> json) {
     return Book(
         title: json['title'],
-        authors: json['authors'].join(', '),
+        authors: json['authors'].map((author) => author['name']).join(', '),
         pages: json['pages'],
         isbn: json['isbn'],
         publishDate: json['publishDate'],
